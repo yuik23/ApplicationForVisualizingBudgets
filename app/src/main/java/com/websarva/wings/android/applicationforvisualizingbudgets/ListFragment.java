@@ -45,7 +45,7 @@ public class ListFragment extends Fragment {
             //現在の表示内容をバックスタックに追加
             transaction.addToBackStack("List");
             //ListFragmentをリスト作成画面フラグメントに置き換え
-            transaction.replace(R.id.fragment_list,CreateListFragment.class,bundle);
+            transaction.replace(R.id.fragmentMainContainer,CreateListFragment.class,bundle);
             //フラグメントトランザクションのコミット
             transaction.commit();
 
