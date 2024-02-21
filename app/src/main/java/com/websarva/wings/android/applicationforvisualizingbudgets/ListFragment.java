@@ -48,7 +48,6 @@ public class ListFragment extends Fragment {
             transaction.replace(R.id.fragmentMainContainer,CreateListFragment.class,bundle);
             //フラグメントトランザクションのコミット
             transaction.commit();
-
         }
 
     }

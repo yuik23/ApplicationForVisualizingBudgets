@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateListFragment">
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#191970"
+        android:elevation="4dp"
+        app:titleTextColor="#ffffff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="true"
+        android:orientation="horizontal">
+
+        <TextView
+        android:id="@+id/tvBudgetName"
+        android:layout_width="74dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/tv_budget_name"
+        android:textSize="20sp" />
+
+        <EditText
+        android:id="@+id/etBudgetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="20sp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/tv_period"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="20sp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etItem8"
@@ -17,9 +70,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem7"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -29,13 +79,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/divItemListBottom"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem8"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -43,14 +90,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem9"
         tools:ignore="SpeakableTextPresentCheck"
         tools:layout_constraintEnd_toStartOf="@id/btSave" />
 
@@ -64,9 +107,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem4"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -79,9 +119,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem5"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -94,9 +131,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem6"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -109,9 +143,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem3"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -124,9 +155,6 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem2"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -138,9 +166,6 @@
         android:layout_marginEnd="8dp"
         android:text="@string/tv_item_budget"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/glCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/divItemListTop"
         tools:layout_constraintStart_toEndOf="@id/glvCreateList" />
 
     <EditText
@@ -153,63 +178,15 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etItem1"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <TextView
-        android:id="@+id/tvBudgetName"
-        android:layout_width="74dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:text="@string/tv_budget_name"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etListName"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/etListName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/glCreateList"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/tvPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/tv_period"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextDate"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/glCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/etListName"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glCreateList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="130dp" />
+        android:orientation="vertical" />
 
     <TextView
         android:id="@+id/tvTotalBudget"
@@ -217,9 +194,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="@string/tv_total_budget"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etnTotalBudget"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/etnTotalBudget"
@@ -230,8 +205,6 @@
         android:ems="10"
         android:inputType="number"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/glCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -241,10 +214,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/bt_save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/bt_save" />
 
     <View
         android:id="@+id/divItemListTop"
@@ -253,24 +223,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etnTotalBudget" />
+        android:background="?android:attr/listDivider" />
 
     <EditText
         android:id="@+id/etItem1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvItem"
         tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
     <TextView
@@ -281,25 +243,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/tv_item"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/glCreateList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divItemListTop" />
+        android:textSize="20sp" />
 
     <ScrollView
         android:id="@+id/svCreateList"
         android:layout_width="7dp"
         android:layout_height="225dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/divItemListBottom"
-        app:layout_constraintTop_toBottomOf="@id/divItemListTop"
-        tools:layout_editor_absoluteX="1dp">
+        tools:ignore="SpeakableTextPresentCheck">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
     </ScrollView>
 
     <View
@@ -309,9 +260,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@id/btSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="?android:attr/listDivider" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
