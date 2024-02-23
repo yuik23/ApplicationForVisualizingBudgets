@@ -37,9 +37,9 @@ public class ListFragment extends Fragment {
             //Bundleオブジェクトに引き継ぎデータを格納
 
             //フラグメントマネージャーを取得
-            FragmentManager manager=getParentFragmentManager();
+            FragmentManager lfManager=getParentFragmentManager();
             //フラグメントトランザクションの開始
-            FragmentTransaction transaction=manager.beginTransaction();
+            FragmentTransaction transaction=lfManager.beginTransaction();
             //フラグメントトランザクションが正しく動作するように設定
             transaction.setReorderingAllowed(true);
             //現在の表示内容をバックスタックに追加
