@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">予算見えるゾウ</string>
     <string name="toolbar_title">予算見えるゾウ</string>
+    <!--共通-->
+    <string name="bt_input">入力</string>
+    <string name="ib_clear">クリア</string>
+    <string name="bt_save">保存</string>
     <!--メイン画面-->
     <string name="tb_name_list">予算リスト</string>
     <string name="tb_name_aggregation">予算リスト</string>
@@ -8,12 +12,10 @@
     <string name="toolbar_create_budget_items">予算項目作成画面</string>
     <string name="tv_budget_name">予算名</string>
     <string name="tv_period">期間</string>
-    <string name="bt_period_start">指定なし</string>
-    <string name="tv_period_range">～</string>
-    <string name="bt_period_end">指定なし</string>
+    <string name="tv_period_display">指定なし</string>
     <string name="tv_total_budget">合計予算</string>
+    <string name="tv_yen">円</string>
     <string name="tv_item">項目</string>
     <string name="tv_item_budget">項目別予算</string>
-    <string name="bt_save">保存</string>
 
 </resources>

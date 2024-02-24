@@ -1,32 +1,32 @@
 package com.websarva.wings.android.applicationforvisualizingbudgets;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
+
+import androidx.core.util.Pair;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class CreateListFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class CreateListFragment extends Fragment{
     //期間表示用変数
-    private TextView inputDateStart;
-    private TextView inputDateEnd;
+    private TextView selectedDate;
 
     public CreateListFragment() {
         super(R.layout.fragment_create_list);
@@ -37,8 +37,7 @@ public class CreateListFragment extends Fragment implements DatePickerDialog.OnD
         super.onViewCreated(view, savedInstanceState);
 
         //OnDateSetへ受け渡しのためビューをあらかじめ取得
-        inputDateStart=view.findViewById(R.id.btPeriodStart);
-        inputDateEnd=view.findViewById(R.id.btPeriodStart);
+        selectedDate=view.findViewById(R.id.tvPeriodDisplay);
 
         //Toolbarを取得
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -56,8 +55,12 @@ public class CreateListFragment extends Fragment implements DatePickerDialog.OnD
         setHasOptionsMenu(true);
 
         //期間入力ボタンにリスナ設定
-        Button btPeriodStart =view.findViewById(R.id.btPeriodStart);
-        btPeriodStart.setOnClickListener(new BtPeriodClickListener());
+        Button btPeriod =view.findViewById(R.id.btPeriodInput);
+        btPeriod.setOnClickListener(new BtPeriodClickListener());
+
+        //クリアボタンにリスナ設定
+        ImageButton ibClear =view.findViewById(R.id.ibClear);
+        ibClear.setOnClickListener(new ibClearClickListener());
 
     }
 
@@ -76,33 +79,50 @@ public class CreateListFragment extends Fragment implements DatePickerDialog.OnD
         return super.onOptionsItemSelected(item);
     }
 
-    public static class DatePickerFragment extends DialogFragment{
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-            // Use the current date as the default date in the picker.
-            final Calendar cl = Calendar.getInstance();
-            int year = cl.get(Calendar.YEAR);
-            int month = cl.get(Calendar.MONTH);
-            int day = cl.get(Calendar.DAY_OF_MONTH);
+   private void CreateDatePickerDialog() {
+        // Creating a MaterialDatePicker builder for selecting a date range
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("期間を選択してください");
 
-            // Create a new instance of DatePickerDialog and return it.
-            return new DatePickerDialog(requireContext(), (DatePickerDialog.OnDateSetListener)getParentFragment(), year, month, day);
-        }
+        // Building the date picker dialog
+        MaterialDatePicker<Pair<Long, Long>> datePicker = builder.build();
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+
+            // Retrieving the selected start and end dates
+            Long startDate = selection.first;
+            Long endDate = selection.second;
+
+            // Formatting the selected dates as strings
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            String startDateString = sdf.format(new Date(startDate));
+            String endDateString = sdf.format(new Date(endDate));
+
+            // Creating the date range string
+            String selectedDateRange = startDateString + " - " + endDateString;
+
+            // Displaying the selected date range in the TextView
+            selectedDate.setText(selectedDateRange);
+        });
+
+        // Showing the date picker dialog
+        datePicker.show(getChildFragmentManager(), "datePicker");
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        String outputDateStart=String.format("%d/%d/%d", year, month+1, day);
-        inputDateStart.setText(outputDateStart);
-    }
-
-
     private class BtPeriodClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            DatePickerFragment dpFragment= new DatePickerFragment();
-            dpFragment.show(getChildFragmentManager(), "datePicker");
+            CreateDatePickerDialog();
+        }
+    }
+
+    private class ibClearClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            if(selectedDate.getText()!="指定なし"){
+                selectedDate.setText("指定なし");
+            }
         }
     }
 }
+
+

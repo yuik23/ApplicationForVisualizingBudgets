@@ -18,71 +18,111 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvBudgetName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_budget_name"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etBudgetName"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvBudgetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_budget_name"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etBudgetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:gravity="center_horizontal"
+                android:inputType="text"
+                android:textSize="20sp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:textSize="20sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_period"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btPeriodInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="@string/bt_input"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPeriodDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/darker_gray"
+                android:ems="10"
+                android:text="@string/tv_period_display"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/ibClear"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTotalBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_total_budget"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etTotalBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:textSize="20sp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tvYen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_yen"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvPeriod"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_period"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btPeriodStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:text="@string/bt_period_start"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tvPeriodRange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_period_range"
-            android:textSize="20sp"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/btPeriodEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@android:color/darker_gray"
-            android:text="@string/bt_period_end"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
 
 <!--
     <EditText
