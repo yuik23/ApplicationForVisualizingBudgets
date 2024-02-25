@@ -3,7 +3,7 @@
     <string name="toolbar_title">予算見えるゾウ</string>
     <!--共通-->
     <string name="bt_input">入力</string>
-    <string name="ib_clear">クリア</string>
+    <string name="bt_clear">クリア</string>
     <string name="bt_save">保存</string>
     <!--メイン画面-->
     <string name="tb_name_list">予算リスト</string>
@@ -17,5 +17,6 @@
     <string name="tv_yen">円</string>
     <string name="tv_item">項目</string>
     <string name="tv_item_budget">項目別予算</string>
+    <string name="bt_add_item">項目追加</string>
 
 </resources>

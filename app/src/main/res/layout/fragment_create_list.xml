@@ -1,331 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="true"
-    android:orientation="vertical">
+    android:baselineAligned="true">
+
+    <TextView
+        android:id="@+id/tvYen2"
+        android:layout_width="35dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/tv_yen"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etItemBudget"
+        app:layout_constraintStart_toEndOf="@+id/etItemBudget" />
+
+    <Button
+        android:id="@+id/btClear"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#e6e6fa"
+        android:text="@string/bt_clear"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btPeriodInput"
+        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="#191970"
         android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#ffffff" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvBudgetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_budget_name"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/etBudgetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="15"
-                android:gravity="center_horizontal"
-                android:inputType="text"
-                android:textSize="20sp"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvPeriod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_period"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/btPeriodInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@android:color/darker_gray"
-                android:text="@string/bt_input"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvPeriodDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/darker_gray"
-                android:ems="10"
-                android:text="@string/tv_period_display"
-                android:textSize="18sp" />
-
-            <ImageButton
-                android:id="@+id/ibClear"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvTotalBudget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_total_budget"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/etTotalBudget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:textSize="20sp"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/tvYen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_yen"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-
-
-    </LinearLayout>
-
-
-
-<!--
-    <EditText
-        android:id="@+id/etItem8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_constraintEnd_toStartOf="@id/btSave" />
-
-    <EditText
-        android:id="@+id/etItem5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etItem3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/tvItemBudget"
+        android:id="@+id/tvBudgetName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/tv_item_budget"
+        android:gravity="center_horizontal"
+        android:text="@string/tv_budget_name"
         android:textSize="20sp"
-        tools:layout_constraintStart_toEndOf="@id/glvCreateList" />
+        app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
-        android:id="@+id/etItem2"
-        android:layout_width="wrap_content"
+        android:id="@+id/etBudgetName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:background="#e6e6fa"
+        android:ems="15"
+        android:gravity="center_horizontal"
         android:inputType="text"
-        android:textSize="20sp"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="SpeakableTextPresentCheck" />
 
 
+    <TextView
+        android:id="@+id/tvPeriod"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="@string/tv_period"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTotalBudget"
+        app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBudgetName" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glCreateList"
+    <Button
+        android:id="@+id/btPeriodInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#e6e6fa"
+        android:text="@string/bt_input"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvPeriodDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="#e6e6fa"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:text="@string/tv_period_display"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/etTotalBudget"
+        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/btPeriodInput" />
+
 
     <TextView
         android:id="@+id/tvTotalBudget"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
         android:text="@string/tv_total_budget"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etTotalBudget"
+        app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etnTotalBudget"
+        android:id="@+id/etTotalBudget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:inputType="number"
         android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/btSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/bt_save" />
-
-    <View
-        android:id="@+id/divItemListTop"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="?android:attr/listDivider" />
-
-    <EditText
-        android:id="@+id/etItem1"
+    <TextView
+        android:id="@+id/tvYen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:ems="10"
-        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_yen"
         android:textSize="20sp"
-        tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        app:layout_constraintStart_toEndOf="@+id/etTotalBudget"
+        app:layout_constraintTop_toTopOf="@+id/etTotalBudget" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vglCreateList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="110dp" />
+
+    <View
+        android:id="@+id/div"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tvItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTotalBudget" />
 
     <TextView
         android:id="@+id/tvItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="@string/tv_item"
-        android:textSize="20sp" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/vglItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/div" />
 
-    <ScrollView
-        android:id="@+id/svCreateList"
-        android:layout_width="7dp"
-        android:layout_height="225dp"
-        tools:ignore="SpeakableTextPresentCheck">
+    <TextView
+        android:id="@+id/tvItemBudget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/tv_item_budget"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvItem"
+        app:layout_constraintTop_toBottomOf="@+id/div" />
 
-    </ScrollView>
+    <EditText
+        android:id="@+id/etItemBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/vglItem"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemBudget"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    <View
-        android:id="@+id/divItemListBottom"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
+    <AutoCompleteTextView
+        android:id="@+id/actvItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="?android:attr/listDivider" />
--->
+        android:ems="7"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etItemBudget"
+        app:layout_constraintEnd_toStartOf="@+id/vglItem"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vglItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="160dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

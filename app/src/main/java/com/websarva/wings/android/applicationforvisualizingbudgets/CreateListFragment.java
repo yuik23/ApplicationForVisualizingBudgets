@@ -1,5 +1,6 @@
 package com.websarva.wings.android.applicationforvisualizingbudgets;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,15 @@ import androidx.fragment.app.FragmentManager;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,12 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateListFragment extends Fragment{
-    //期間表示用変数
-    private TextView selectedDate;
-
     public CreateListFragment() {
         super(R.layout.fragment_create_list);
     }
+
+    private TextView selectedDate;
+    private ItemArrayAdapter adapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -59,8 +64,14 @@ public class CreateListFragment extends Fragment{
         btPeriod.setOnClickListener(new BtPeriodClickListener());
 
         //クリアボタンにリスナ設定
-        ImageButton ibClear =view.findViewById(R.id.ibClear);
-        ibClear.setOnClickListener(new ibClearClickListener());
+        Button btClear =view.findViewById(R.id.btClear);
+        btClear.setOnClickListener(new btClearClickListener());
+
+        //予算項目入力時に候補を表示する
+        String[] itemArray = {"食費", "日用品費", "医療費", "子ども費", "被服費", "美容費", "交際費", "娯楽費", "雑費", "特別費"};
+        adapter = new ItemArrayAdapter (requireContext(), android.R.layout.simple_dropdown_item_1line, itemArray);
+        AutoCompleteTextView itemView = view.findViewById(R.id.actvItem);
+        itemView .setAdapter(adapter );
 
     }
 
@@ -80,7 +91,7 @@ public class CreateListFragment extends Fragment{
     }
 
 
-   private void CreateDatePickerDialog() {
+    private void CreateDatePickerDialog() {
         // Creating a MaterialDatePicker builder for selecting a date range
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("期間を選択してください");
@@ -115,7 +126,7 @@ public class CreateListFragment extends Fragment{
         }
     }
 
-    private class ibClearClickListener implements View.OnClickListener{
+    private class btClearClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
             if(selectedDate.getText()!="指定なし"){
@@ -123,6 +134,34 @@ public class CreateListFragment extends Fragment{
             }
         }
     }
+
+
+    public class ItemsFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence prefix) {
+            return new FilterResults();
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            if (results.count > 0) {
+                adapter.notifyDataSetChanged();
+            } else {
+                adapter.notifyDataSetInvalidated();
+            }
+        }
+    }
+
+    public class ItemArrayAdapter extends ArrayAdapter<String> {
+        public ItemArrayAdapter (@NonNull Context context, int textViewResourceId, @NonNull String[] objects) {
+            super(requireContext(), textViewResourceId, objects);
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new ItemsFilter();
+        }
+    }
+
 }
 
 
