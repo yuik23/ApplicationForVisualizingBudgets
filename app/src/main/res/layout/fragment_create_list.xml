@@ -12,22 +12,13 @@
         android:layout_width="35dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
         android:text="@string/tv_yen"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/etItemBudget"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etItemBudget" />
-
-    <Button
-        android:id="@+id/btClear"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#e6e6fa"
-        android:text="@string/bt_clear"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/btPeriodInput"
-        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
-        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -48,60 +39,46 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="@string/tv_budget_name"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+
     <EditText
         android:id="@+id/etBudgetName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:background="#e6e6fa"
         android:ems="15"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:inputType="text"
-        android:textSize="48sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/vglCreateList"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
     <TextView
         android:id="@+id/tvPeriod"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/tv_period"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvTotalBudget"
         app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBudgetName" />
-
-    <Button
-        android:id="@+id/btPeriodInput"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#e6e6fa"
-        android:text="@string/bt_input"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
-        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvPeriodDisplay"
@@ -109,15 +86,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="#e6e6fa"
         android:ems="10"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="@string/tv_period_display"
+        android:textColor="@android:color/darker_gray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/etTotalBudget"
         app:layout_constraintStart_toStartOf="@+id/vglCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/btPeriodInput" />
+        app:layout_constraintTop_toBottomOf="@id/ibPeriodInput" />
 
 
     <TextView
@@ -129,34 +104,21 @@
         android:gravity="center"
         android:text="@string/tv_total_budget"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etTotalBudget"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvTotalBudgetDisplay"
         app:layout_constraintEnd_toStartOf="@+id/vglCreateList"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etTotalBudget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:inputType="number"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/tvYen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
         android:text="@string/tv_yen"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/etTotalBudget"
-        app:layout_constraintTop_toTopOf="@+id/etTotalBudget" />
+        app:layout_constraintStart_toEndOf="@+id/tvTotalBudgetDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vglCreateList"
@@ -170,14 +132,15 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/tvItem"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTotalBudget" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalBudgetDisplay" />
 
     <TextView
         android:id="@+id/tvItem"
@@ -196,6 +159,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/tv_item_budget"
         android:textSize="16sp"
@@ -206,9 +170,12 @@
     <EditText
         android:id="@+id/etItemBudget"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#e6e6fa"
         android:ems="10"
+        android:gravity="center"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/vglItem"
         app:layout_constraintTop_toBottomOf="@+id/tvItemBudget"
@@ -217,13 +184,16 @@
     <AutoCompleteTextView
         android:id="@+id/actvItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#e6e6fa"
         android:ems="7"
+        android:gravity="center"
         android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etItemBudget"
-        app:layout_constraintEnd_toStartOf="@+id/vglItem"
+        app:layout_constraintEnd_toStartOf="@id/vglItem"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvItem"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -232,6 +202,40 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="160dp" />
+
+    <ImageButton
+        android:id="@+id/ibPeriodInput"
+        android:layout_width="68dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
+        app:srcCompat="@drawable/bt_input"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/ibClear"
+        android:layout_width="68dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/ibPeriodInput"
+        app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
+        app:srcCompat="@drawable/ib_clear"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tvTotalBudgetDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/tv_total_budget_display"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/vglCreateList"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

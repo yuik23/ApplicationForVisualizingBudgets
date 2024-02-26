@@ -60,18 +60,26 @@ public class CreateListFragment extends Fragment{
         setHasOptionsMenu(true);
 
         //期間入力ボタンにリスナ設定
-        Button btPeriod =view.findViewById(R.id.btPeriodInput);
-        btPeriod.setOnClickListener(new BtPeriodClickListener());
+        ImageButton ibPeriod =view.findViewById(R.id.ibPeriodInput);
+        ibPeriod.setOnClickListener(new BtPeriodClickListener());
 
         //クリアボタンにリスナ設定
-        Button btClear =view.findViewById(R.id.btClear);
-        btClear.setOnClickListener(new btClearClickListener());
+        ImageButton ibClear =view.findViewById(R.id.ibClear);
+        ibClear.setOnClickListener(new btClearClickListener());
 
         //予算項目入力時に候補を表示する
         String[] itemArray = {"食費", "日用品費", "医療費", "子ども費", "被服費", "美容費", "交際費", "娯楽費", "雑費", "特別費"};
         adapter = new ItemArrayAdapter (requireContext(), android.R.layout.simple_dropdown_item_1line, itemArray);
-        AutoCompleteTextView itemView = view.findViewById(R.id.actvItem);
-        itemView .setAdapter(adapter );
+        AutoCompleteTextView actvItem = view.findViewById(R.id.actvItem);
+        actvItem .setAdapter(adapter);
+        //未入力(フォーカス、タップ)で候補を表示
+        actvItem.setThreshold(1);
+        actvItem.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                actvItem.showDropDown();
+            }
+        });
+        actvItem.setOnClickListener(v -> actvItem.showDropDown());
 
     }
 
@@ -161,7 +169,4 @@ public class CreateListFragment extends Fragment{
             return new ItemsFilter();
         }
     }
-
 }
-
-
