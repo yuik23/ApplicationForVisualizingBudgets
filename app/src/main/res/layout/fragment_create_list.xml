@@ -11,13 +11,10 @@
         android:id="@+id/tvYen2"
         android:layout_width="35dp"
         android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="@string/tv_yen"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/etItemBudget"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etItemBudget" />
 
     <androidx.appcompat.widget.Toolbar
@@ -156,14 +153,13 @@
 
     <TextView
         android:id="@+id/tvItemBudget"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/tv_item_budget"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvItem"
         app:layout_constraintTop_toBottomOf="@+id/div" />
 
@@ -174,7 +170,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#e6e6fa"
-        android:ems="10"
+        android:ems="7"
         android:gravity="center"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/vglItem"
@@ -236,6 +232,27 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/vglCreateList"
         app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay" />
+
+    <ListView
+        android:id="@+id/lvBudgetItems"
+        android:layout_width="0dp"
+        android:layout_height="292dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actvItem" />
+
+    <ImageButton
+        android:id="@+id/ibAddItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tvYen2"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemBudget"
+        app:srcCompat="@drawable/ic_plus" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

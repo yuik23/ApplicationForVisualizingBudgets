@@ -1,6 +1,7 @@
 package com.websarva.wings.android.applicationforvisualizingbudgets;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,8 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,12 +25,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.Filter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CreateListFragment extends Fragment{
     public CreateListFragment() {
@@ -36,6 +45,10 @@ public class CreateListFragment extends Fragment{
 
     private TextView selectedDate;
     private ItemArrayAdapter adapter;
+    public static Map<String, String> data;
+    public static List<Map<String, String>> dataList;
+    public static ListView listView;
+    public static ItemListViewAdapter listAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -43,6 +56,9 @@ public class CreateListFragment extends Fragment{
 
         //OnDateSetへ受け渡しのためビューをあらかじめ取得
         selectedDate=view.findViewById(R.id.tvPeriodDisplay);
+
+        //ListView
+        dataList = new ArrayList<Map<String, String>>();
 
         //Toolbarを取得
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -52,9 +68,9 @@ public class CreateListFragment extends Fragment{
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         // ActionBarを設置する。
         activity.setSupportActionBar(toolbar);
-        // ActionBarにhomeボタンを表示する。
+        // ActionBarに戻るボタンを表示する。
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // homeボタンを押下できる設定にする。
+        // 戻るボタンを押下できる設定にする。
         activity.getSupportActionBar().setHomeButtonEnabled(true);
         // Fragment#onOptionsItemSelectedを有効にする。
         setHasOptionsMenu(true);
@@ -81,8 +97,32 @@ public class CreateListFragment extends Fragment{
         });
         actvItem.setOnClickListener(v -> actvItem.showDropDown());
 
+
+        // ListViewに表示するためのDATAを作成する
+        int MAXDATA = 10;
+        for (int i = 0; i < MAXDATA; i++) {
+            data = new HashMap<String, String>();
+            data.put("text1", "タイトル" + i);
+            data.put("text2", "サブ" + i);
+            dataList.add(data);
+        }
+
+        // アダプターにデータを渡す
+        listAdapter = new ItemListViewAdapter(
+                requireContext(),
+                dataList,
+                R.layout.row_item_list,
+                new String[] { "text1", "text2" },
+                new int[] { android.R.id.text1,
+                        android.R.id.text2 });
+
+        // ListViewにアダプターをSETする
+        listView = (ListView) view.findViewById(R.id.lvBudgetItems);
+        listView.setAdapter(listAdapter);
+        listView.setTextFilterEnabled(false);
     }
 
+    //MenuItemが押されると呼ばれるメソッド
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -127,6 +167,8 @@ public class CreateListFragment extends Fragment{
         // Showing the date picker dialog
         datePicker.show(getChildFragmentManager(), "datePicker");
     }
+
+    //期間入力ボタンのリスナ
     private class BtPeriodClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -134,6 +176,7 @@ public class CreateListFragment extends Fragment{
         }
     }
 
+    //期間クリアボタンのリスナ
     private class btClearClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
@@ -143,8 +186,9 @@ public class CreateListFragment extends Fragment{
         }
     }
 
-
+    //項目に入力候補を表示するためにFilter作成
     public class ItemsFilter extends Filter {
+        //候補を絞らないのでperformFilteringで空のFilterResultを返す
         @Override
         protected FilterResults performFiltering(CharSequence prefix) {
             return new FilterResults();
@@ -159,14 +203,16 @@ public class CreateListFragment extends Fragment{
         }
     }
 
+    //項目に入力候補を表示するためにAdapter作成
     public class ItemArrayAdapter extends ArrayAdapter<String> {
+        //コンストラクタは適当
         public ItemArrayAdapter (@NonNull Context context, int textViewResourceId, @NonNull String[] objects) {
             super(requireContext(), textViewResourceId, objects);
         }
-
         @Override
         public Filter getFilter() {
             return new ItemsFilter();
         }
     }
+
 }
