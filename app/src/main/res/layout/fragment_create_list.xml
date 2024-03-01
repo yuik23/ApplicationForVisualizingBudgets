@@ -187,10 +187,10 @@
         android:background="#e6e6fa"
         android:ems="8"
         android:gravity="center"
-        android:textSize="16sp"
         android:maxLength="8"
         android:maxLines="1"
         android:nextFocusDown="@+id/etItemBudget"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/vglItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvItem"
@@ -240,18 +240,16 @@
     <ListView
         android:id="@+id/lvBudgetItems"
         android:layout_width="0dp"
-        android:layout_height="292dp"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:isScrollContainer="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/actvItem"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintTop_toBottomOf="@+id/actvItem" />
 
     <ImageButton
         android:id="@+id/ibAddItem"
@@ -263,6 +261,21 @@
         app:layout_constraintTop_toBottomOf="@+id/tvItemBudget"
         app:srcCompat="@drawable/ic_plus"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#191970"
+        android:text="@string/bt_save"
+        android:textSize="20sp"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

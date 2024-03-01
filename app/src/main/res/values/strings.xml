@@ -19,5 +19,6 @@
     <string name="tv_item">項目</string>
     <string name="tv_item_budget">項目別予算</string>
     <string name="bt_add_item">項目追加</string>
+    <string name="menu_delete">項目削除</string>
 
 </resources>

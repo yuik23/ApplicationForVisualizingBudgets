@@ -2,10 +2,13 @@ package com.websarva.wings.android.applicationforvisualizingbudgets;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -47,7 +50,7 @@ public class CreateListFragment extends Fragment{
     public SimpleAdapter itemListAdapter;
     public List<Map<String, String>> itemList;
     public Map<String, String> itemData;
-    public ImageButton ibDeleteRowV;
+   /* public ImageButton ibDeleteRowV;*/
 
 
     //入力項目取得用
@@ -55,6 +58,14 @@ public class CreateListFragment extends Fragment{
     public String inputItem;
     public EditText etItemBudgetV;
     public Integer inputItemBudget;
+
+    //項目入力後、合計予算を表示する用
+    public TextView tvTotalBudgetDisplayV;
+    public Integer totalBudget=0;
+
+    //項目削除の際に取得する削除分の予算
+    private Integer deletedBudget;
+    private Map<String, String> selectedRow;
 
 
 
@@ -70,8 +81,11 @@ public class CreateListFragment extends Fragment{
         actvItemV=view.findViewById(R.id.actvItem);
         etItemBudgetV=view.findViewById(R.id.etItemBudget);
 
-        //リストビューの行削除のため削除ボタンのビューをあらかじめ取得
-        ibDeleteRowV=view.findViewById(R.id.ibDeleteRow);
+        //合計予算表示用ビューを取得
+        tvTotalBudgetDisplayV=view.findViewById(R.id.tvTotalBudgetDisplay);
+
+        /*//リストビューの行削除のため削除ボタンのビューをあらかじめ取得
+        ibDeleteRowV=view.findViewById(R.id.ibDeleteRow);*/
 
 
         //Toolbarを取得
@@ -136,6 +150,8 @@ public class CreateListFragment extends Fragment{
         //プラスボタンにリスナ設定
         ImageButton ibAddItem=view.findViewById(R.id.ibAddItem);
         ibAddItem.setOnClickListener(new ibAddItemClickListener());
+
+        registerForContextMenu(itemListView);
 
 
        /* // ListViewに表示するためのDATAを作成する
@@ -282,6 +298,8 @@ public class CreateListFragment extends Fragment{
                 inputItem = actvItemV.getText().toString();
                 actvItemV.setText("");
                 inputItemBudget = Integer.parseInt(etItemBudgetV.getText().toString());
+                totalBudget=totalBudget+inputItemBudget;
+                tvTotalBudgetDisplayV.setText(totalBudget.toString());
                 etItemBudgetV.setText("");
 
                 //ListViewに取得した値を格納
@@ -290,23 +308,41 @@ public class CreateListFragment extends Fragment{
                 itemData.put("itemBudget", inputItemBudget + "円");
                 itemList.add(itemData);
                 itemListAdapter.notifyDataSetChanged();
-                //削除ボタンにリスナ設定
-               /* //リストビューの行削除のため削除ボタンのビューをあらかじめ取得
-                ibDeleteRowV=view.findViewById(R.id.ibDeleteRow);
-                ibDeleteRowV.setOnClickListener(new ibDeleteItemClickListener());
-                ibDeleteRowV.setTag(itemList.size()-1);*/
             }
         }
     }
 
-    //削除ボタンのリスナ
-    private class ibDeleteItemClickListener implements View.OnClickListener{
-        @Override
-        public void onClick(View view){
-            itemList.remove(ibDeleteRowV.getTag());
-
-
-        }
-
+    //リストを長押しで削除コンテキストメニューを表示
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
+        //親クラスの同名メソッド呼び出し
+        super.onCreateContextMenu(menu,view,menuInfo);
+        //メニューインフレーターの取得
+        MenuInflater inflater =getActivity().getMenuInflater();
+        //コンテキストメニュー用.xmlファイルをインフレート
+        inflater.inflate(R.menu.context_menu,menu);
     }
+
+    //コンテキストメニューが選択されたときの処理
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        //戻り値用の変数を初期値trueで用意
+        boolean returnVal =true;
+        //長押しされたビューに関する情報が格納されたオブジェクトを取得
+        AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        //長押しされたリストのポジションを取得
+        int listPosition=info.position;
+        //選択された行の予算を取得
+        selectedRow=itemList.get(listPosition);
+        deletedBudget=Integer.parseInt(selectedRow.get("itemBudget").replace("円",""));
+        //合計予算から削除分を減らす
+        totalBudget=totalBudget-deletedBudget;
+        tvTotalBudgetDisplayV.setText(totalBudget.toString());
+        //選択されたListViewの行を削除
+        itemList.remove(listPosition);
+        itemListAdapter.notifyDataSetChanged();
+        return returnVal;
+    }
+
+
 }
