@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/linearLayout_fragment_create_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="true">
@@ -227,13 +227,13 @@
 
     <TextView
         android:id="@+id/tvTotalBudgetDisplay"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
-        android:text="@string/tv_total_budget_display"
         android:textColor="@android:color/darker_gray"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="@+id/vglCreateList"
         app:layout_constraintTop_toBottomOf="@+id/tvPeriodDisplay" />
 

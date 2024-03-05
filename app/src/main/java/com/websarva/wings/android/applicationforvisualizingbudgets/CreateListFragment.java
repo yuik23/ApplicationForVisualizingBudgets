@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageButton;
@@ -23,8 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 
@@ -36,46 +39,68 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateListFragment extends Fragment{
-    public CreateListFragment() {
-        super(R.layout.fragment_create_list);
-    }
 
-    //期間入力時に選択された期間を格納
-    private TextView selectedDate;
+    //ListFragmentに受け渡す変数
+    //予算名
+    public String budgetName;
+    //期間
+    public String period;
+    //合計予算
+    public Integer totalBudget=0;
+    //項目リスト
+    public List<Map<String,String>> itemList;
+    public Map<String, String> itemData;
+    //受け渡し用List
+    public ArrayList<String> itemListItem;
+    public ArrayList<Integer> itemListBudget;
+
+
+    //予算名取得用
+    private TextView etBudgetNameV;
+
+    //期間入力欄ビュー取得用
+    private TextView tvPeriodDisplayV;
 
     //予算項目入力時の候補表示用アダプター
     private ItemArrayAdapter itemAdapter;
 
     //ListView表示用
     public SimpleAdapter itemListAdapter;
-    public List<Map<String, String>> itemList;
-    public Map<String, String> itemData;
-   /* public ImageButton ibDeleteRowV;*/
+
+
 
 
     //入力項目取得用
-    public AutoCompleteTextView actvItemV;
-    public String inputItem;
-    public EditText etItemBudgetV;
-    public Integer inputItemBudget;
+    private AutoCompleteTextView actvItemV;
+    private String inputItem;
+    private EditText etItemBudgetV;
+    private Integer inputItemBudget;
 
     //項目入力後、合計予算を表示する用
-    public TextView tvTotalBudgetDisplayV;
-    public Integer totalBudget=0;
+    private TextView tvTotalBudgetDisplayV;
+
 
     //項目削除の際に取得する削除分の予算
     private Integer deletedBudget;
     private Map<String, String> selectedRow;
 
+    //エラーダイアログメッセージ用
+    public String errorPoint;
 
+    public CreateListFragment() {
+        super(R.layout.fragment_create_list);
+    }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //予算名受け渡しのためビューをあらかじめ取得
+        etBudgetNameV=view.findViewById(R.id.etBudgetName);
+
         //OnDateSetへ受け渡しのためビューをあらかじめ取得
-        selectedDate=view.findViewById(R.id.tvPeriodDisplay);
+        tvPeriodDisplayV=view.findViewById(R.id.tvPeriodDisplay);
 
         //プラスボタンリスナへ受け渡しのためビューをあらかじめ取得
         actvItemV=view.findViewById(R.id.actvItem);
@@ -135,6 +160,9 @@ public class CreateListFragment extends Fragment{
         ListView itemListView=view.findViewById(R.id.lvBudgetItems);
         //ListViewに表示するリストデータ用Listオブジェクトを作成
         itemList = new ArrayList<Map<String, String>>();
+        //受け渡し用オブジェクトを作成
+        itemListItem= new ArrayList<>();
+        itemListBudget=new ArrayList<>();
         //項目データを格納するMapオブジェクトを用意
         itemData = new HashMap<String,String>();
         //SimpleAdapter第4引数from用データの用意
@@ -151,31 +179,15 @@ public class CreateListFragment extends Fragment{
         ImageButton ibAddItem=view.findViewById(R.id.ibAddItem);
         ibAddItem.setOnClickListener(new ibAddItemClickListener());
 
+        //リストビューにコンテキストメニュー登録
         registerForContextMenu(itemListView);
 
+        //保存ボタンにリスナ設定
+        Button btSave=view.findViewById(R.id.btSave);
+        btSave.setOnClickListener(new btSaveClickListener());
 
-       /* // ListViewに表示するためのDATAを作成する
-        int MAXDATA = 10;
-        for (int i = 0; i < MAXDATA; i++) {
-            data = new HashMap<String, String>();
-            data.put("text1", "タイトル" + i);
-            data.put("text2", "サブ" + i);
-            dataList.add(data);
-        }
 
-        // アダプターにデータを渡す
-        listAdapter = new ItemListViewAdapter(
-                requireContext(),
-                dataList,
-                R.layout.row_item_list,
-                new String[] { "text1", "text2" },
-                new int[] { android.R.id.text1,
-                        android.R.id.text2 });
 
-        // ListViewにアダプターをSETする
-        listView = (ListView) view.findViewById(R.id.lvBudgetItems);
-        listView.setAdapter(listAdapter);
-        listView.setTextFilterEnabled(false);*/
     }
 
     //MenuItemが押されると呼ばれるメソッド
@@ -217,7 +229,7 @@ public class CreateListFragment extends Fragment{
             String selectedDateRange = startDateString + " - " + endDateString;
 
             // Displaying the selected date range in the TextView
-            selectedDate.setText(selectedDateRange);
+            tvPeriodDisplayV.setText(selectedDateRange);
         });
 
         // Showing the date picker dialog
@@ -236,8 +248,8 @@ public class CreateListFragment extends Fragment{
     private class btClearClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            if(selectedDate.getText()!="指定なし"){
-                selectedDate.setText("指定なし");
+            if(tvPeriodDisplayV.getText()!="指定なし"){
+                tvPeriodDisplayV.setText("指定なし");
             }
         }
     }
@@ -302,6 +314,10 @@ public class CreateListFragment extends Fragment{
                 tvTotalBudgetDisplayV.setText(totalBudget.toString());
                 etItemBudgetV.setText("");
 
+                //受け渡し用ArrayListにデータを保存
+                itemListItem.add(inputItem);
+                itemListBudget.add(inputItemBudget);
+
                 //ListViewに取得した値を格納
                 itemData = new HashMap<>();
                 itemData.put("item", inputItem);
@@ -338,10 +354,80 @@ public class CreateListFragment extends Fragment{
         //合計予算から削除分を減らす
         totalBudget=totalBudget-deletedBudget;
         tvTotalBudgetDisplayV.setText(totalBudget.toString());
+        //受け渡し用ArrayListのデータを削除
+        itemListItem.remove(listPosition);
+        itemListBudget.remove(listPosition);
         //選択されたListViewの行を削除
         itemList.remove(listPosition);
         itemListAdapter.notifyDataSetChanged();
+
         return returnVal;
+    }
+
+    //保存ボタンのリスナ
+    private class btSaveClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+
+            //引き継ぎデータをまとめて格納できるBundleオブジェクト生成
+            Bundle itemBundle=new Bundle();
+            //未入力の際に出すダイアログにデータを渡すBundleオブジェクト生成
+            Bundle NotEnteredDialogBundle = new Bundle();
+            //ダイアログフラグメントオブジェクトを生成
+            NotEnteredDialogFragment dialogFragment = new NotEnteredDialogFragment();
+
+
+            //Bundleオブジェクトに引き継ぎデータを格納
+            //予算名
+            //未入力ならダイアログボックスを表示
+            if(etBudgetNameV.getText().toString().length()==0){
+                NotEnteredDialogBundle.putString("errorPoint", "予算名");
+                dialogFragment.setArguments(NotEnteredDialogBundle);
+                dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
+            }else {
+                budgetName = etBudgetNameV.getText().toString();
+                itemBundle.putString("budgetName", budgetName);
+
+                //期間
+                //nullならダイアログボックスを表示
+                if(tvPeriodDisplayV.getText().toString()==null){
+                    NotEnteredDialogBundle.putString("errorPoint", "期間");
+                    dialogFragment.setArguments(NotEnteredDialogBundle);
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
+                }else {
+                    period = tvPeriodDisplayV.getText().toString();
+                    itemBundle.putString("period", period);
+
+                    //合計予算
+                    //nullもしくは0ならダイアログボックスを表示
+                    if((totalBudget==null)||(totalBudget==0)){
+                        NotEnteredDialogBundle.putString("errorPoint", "項目別予算");
+                        dialogFragment.setArguments(NotEnteredDialogBundle);
+                        dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
+                    }else {
+                        itemBundle.putInt("totalBudget", totalBudget);
+                        //項目リスト
+                        //Bundleで受け渡すためMapをArrayListに格納
+                        itemBundle.putStringArrayList("itemListItem", itemListItem);
+                        itemBundle.putIntegerArrayList("itemListBudget", itemListBudget);
+
+                        //フラグメントマネージャーを取得
+                        FragmentManager clfManager=getParentFragmentManager();
+                        //フラグメントトランザクションの開始
+                        FragmentTransaction clfTransaction=clfManager.beginTransaction();
+                        //フラグメントトランザクションが正しく動作するように設定
+                        clfTransaction.setReorderingAllowed(true);
+                        //現在の表示内容をバックスタックに追加
+                        clfTransaction.addToBackStack("createList");
+                        //リスト作成画面フラグメントをListFragmentに置き換え
+                        clfTransaction.replace(R.id.fragmentMainContainer,MainFragment.class,itemBundle);
+                        //フラグメントトランザクションのコミット
+                        clfTransaction.commit();
+
+                    }
+                }
+            }
+        }
     }
 
 
