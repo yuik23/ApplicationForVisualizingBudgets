@@ -2,6 +2,7 @@ package com.websarva.wings.android.applicationforvisualizingbudgets;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModel;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Color;
@@ -12,10 +13,15 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity{
 
+    public class MyViewModel extends ViewModel {
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
 }

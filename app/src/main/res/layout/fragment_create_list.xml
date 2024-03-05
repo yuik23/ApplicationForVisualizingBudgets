@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout_fragment_create_list"
+    android:id="@+id/constraint_fragment_create_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="true">
@@ -212,7 +212,7 @@
         app:layout_constraintStart_toEndOf="@id/vglCreateList"
         app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
         app:srcCompat="@drawable/bt_input"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ImageButton
         android:id="@+id/ibClear"
@@ -223,7 +223,7 @@
         app:layout_constraintStart_toEndOf="@+id/ibPeriodInput"
         app:layout_constraintTop_toBottomOf="@+id/etBudgetName"
         app:srcCompat="@drawable/ib_clear"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvTotalBudgetDisplay"
@@ -260,7 +260,7 @@
         app:layout_constraintStart_toEndOf="@+id/tvYen2"
         app:layout_constraintTop_toBottomOf="@+id/tvItemBudget"
         app:srcCompat="@drawable/ic_plus"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/btSave"

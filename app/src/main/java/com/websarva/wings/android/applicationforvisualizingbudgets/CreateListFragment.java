@@ -24,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,7 +39,7 @@ import java.util.Map;
 
 public class CreateListFragment extends Fragment{
 
-    //ListFragmentに受け渡す変数
+    //受け渡す変数
     //予算名
     public String budgetName;
     //期間
@@ -109,9 +108,6 @@ public class CreateListFragment extends Fragment{
         //合計予算表示用ビューを取得
         tvTotalBudgetDisplayV=view.findViewById(R.id.tvTotalBudgetDisplay);
 
-        /*//リストビューの行削除のため削除ボタンのビューをあらかじめ取得
-        ibDeleteRowV=view.findViewById(R.id.ibDeleteRow);*/
-
 
         //Toolbarを取得
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -168,7 +164,7 @@ public class CreateListFragment extends Fragment{
         //SimpleAdapter第4引数from用データの用意
         String[] from={"item","itemBudget"};
         //SimpleAdapter第5引数to用データの用意
-        int[] to={R.id.tvItemRow,R.id.tvItemBudgetRow};
+        int[] to={R.id.tvBudgetNameRow,R.id.tvTotalBudgetRow};
         //アダプタオブジェクトを生成
         itemListAdapter=new SimpleAdapter(requireContext(),itemList,R.layout.row_item_list,from,to);
         //リストビューにアダプタオブジェクトを設定
@@ -285,7 +281,6 @@ public class CreateListFragment extends Fragment{
 
     //項目入力欄のリスナ。enterキー入力時にソフトウェアキーボードを隠す処理
     private class enterClickListener implements TextView.OnEditorActionListener {
-
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -405,11 +400,14 @@ public class CreateListFragment extends Fragment{
                         dialogFragment.setArguments(NotEnteredDialogBundle);
                         dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
                     }else {
-                        itemBundle.putInt("totalBudget", totalBudget);
+                        itemBundle.putString("totalBudget", totalBudget.toString()+"円");
                         //項目リスト
                         //Bundleで受け渡すためMapをArrayListに格納
                         itemBundle.putStringArrayList("itemListItem", itemListItem);
                         itemBundle.putIntegerArrayList("itemListBudget", itemListBudget);
+                        //BundleをListFragmentに受け渡す
+                        ListFragment listFragment=new ListFragment();
+                        listFragment.setArguments(itemBundle);
 
                         //フラグメントマネージャーを取得
                         FragmentManager clfManager=getParentFragmentManager();
@@ -419,7 +417,7 @@ public class CreateListFragment extends Fragment{
                         clfTransaction.setReorderingAllowed(true);
                         //現在の表示内容をバックスタックに追加
                         clfTransaction.addToBackStack("createList");
-                        //リスト作成画面フラグメントをListFragmentに置き換え
+                        //リスト作成画面フラグメントをMainFragmentに置き換え
                         clfTransaction.replace(R.id.fragmentMainContainer,MainFragment.class,itemBundle);
                         //フラグメントトランザクションのコミット
                         clfTransaction.commit();
