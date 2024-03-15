@@ -1,4 +1,4 @@
-package com.websarva.wings.android.applicationforvisualizingbudgets;
+package com.websarva.wings.android.applicationforvisualizingbudgets.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,12 +10,13 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.websarva.wings.android.applicationforvisualizingbudgets.R;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
-
-    public class MyViewModel extends ViewModel {
-
-    }
 
 
     @Override

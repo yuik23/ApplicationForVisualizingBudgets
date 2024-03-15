@@ -5,7 +5,7 @@
     android:id="@+id/fragmentMainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.websarva.wings.android.applicationforvisualizingbudgets.MainFragment"
+    android:name="com.websarva.wings.android.applicationforvisualizingbudgets.view.MainFragment"
     tools:layout="@layout/fragment_main" />
 
 

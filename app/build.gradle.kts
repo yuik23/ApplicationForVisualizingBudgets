@@ -36,5 +36,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.11.0")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")//Room本体のライブラリ
+    annotationProcessor("androidx.room:room-compiler:2.6.1")//Room本体のライブラリ
+    implementation ("androidx.room:room-guava:2.6.1")  // 非同期処理用、Guavaライブラリの利用を設定
+    implementation ("com.google.guava:guava:31.1-android")  // 非同期処理用、RoomとGuavaを連携
+
 }

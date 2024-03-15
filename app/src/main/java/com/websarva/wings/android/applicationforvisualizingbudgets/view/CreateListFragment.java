@@ -1,4 +1,4 @@
-package com.websarva.wings.android.applicationforvisualizingbudgets;
+package com.websarva.wings.android.applicationforvisualizingbudgets.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,8 +27,11 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.websarva.wings.android.applicationforvisualizingbudgets.MainViewModel;
+import com.websarva.wings.android.applicationforvisualizingbudgets.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,19 +42,14 @@ import java.util.Map;
 
 public class CreateListFragment extends Fragment{
 
+    public MainViewModel viewModel;
+
     //受け渡す変数
-    //予算名
-    public String budgetName;
-    //期間
-    public String period;
     //合計予算
-    public Integer totalBudget=0;
-    //項目リスト
-    public List<Map<String,String>> itemList;
-    public Map<String, String> itemData;
+    public Integer totalBudget;
     //受け渡し用List
-    public ArrayList<String> itemListItem;
-    public ArrayList<Integer> itemListBudget;
+    public List<String> itemListItem;
+    public List<Integer> itemListBudget;
 
 
     //予算名取得用
@@ -65,8 +63,9 @@ public class CreateListFragment extends Fragment{
 
     //ListView表示用
     public SimpleAdapter itemListAdapter;
-
-
+    //項目リスト
+    public List<Map<String,String>> itemList;
+    public Map<String, String> itemData;
 
 
     //入力項目取得用
@@ -94,6 +93,9 @@ public class CreateListFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //ViewModelProviderでViewModelを取得
+        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         //予算名受け渡しのためビューをあらかじめ取得
         etBudgetNameV=view.findViewById(R.id.etBudgetName);
@@ -364,15 +366,16 @@ public class CreateListFragment extends Fragment{
         @Override
         public void onClick(View view) {
 
-            //引き継ぎデータをまとめて格納できるBundleオブジェクト生成
-            Bundle itemBundle=new Bundle();
+
+            //画面遷移時に引き渡すBundleオブジェクトを定義
+            Bundle bundle=new Bundle();
             //未入力の際に出すダイアログにデータを渡すBundleオブジェクト生成
             Bundle NotEnteredDialogBundle = new Bundle();
             //ダイアログフラグメントオブジェクトを生成
             NotEnteredDialogFragment dialogFragment = new NotEnteredDialogFragment();
 
 
-            //Bundleオブジェクトに引き継ぎデータを格納
+            //viewModelに引き継ぎデータを格納
             //予算名
             //未入力ならダイアログボックスを表示
             if(etBudgetNameV.getText().toString().length()==0){
@@ -380,8 +383,7 @@ public class CreateListFragment extends Fragment{
                 dialogFragment.setArguments(NotEnteredDialogBundle);
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
             }else {
-                budgetName = etBudgetNameV.getText().toString();
-                itemBundle.putString("budgetName", budgetName);
+                viewModel.budgetName.add(etBudgetNameV.getText().toString());
 
                 //期間
                 //nullならダイアログボックスを表示
@@ -390,8 +392,7 @@ public class CreateListFragment extends Fragment{
                     dialogFragment.setArguments(NotEnteredDialogBundle);
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
                 }else {
-                    period = tvPeriodDisplayV.getText().toString();
-                    itemBundle.putString("period", period);
+                    viewModel.period.add(tvPeriodDisplayV.getText().toString());
 
                     //合計予算
                     //nullもしくは0ならダイアログボックスを表示
@@ -400,14 +401,11 @@ public class CreateListFragment extends Fragment{
                         dialogFragment.setArguments(NotEnteredDialogBundle);
                         dialogFragment.show(getActivity().getSupportFragmentManager(), "errorDialog");
                     }else {
-                        itemBundle.putString("totalBudget", totalBudget.toString()+"円");
+                        viewModel.totalBudget.add(totalBudget);
                         //項目リスト
-                        //Bundleで受け渡すためMapをArrayListに格納
-                        itemBundle.putStringArrayList("itemListItem", itemListItem);
-                        itemBundle.putIntegerArrayList("itemListBudget", itemListBudget);
-                        //BundleをListFragmentに受け渡す
-                        ListFragment listFragment=new ListFragment();
-                        listFragment.setArguments(itemBundle);
+                        //MapをArrayListに格納しなおしてviewModelに渡す
+                        viewModel.itemListItem.add(itemListItem);
+                        viewModel.itemListBudget.add(itemListBudget);
 
                         //フラグメントマネージャーを取得
                         FragmentManager clfManager=getParentFragmentManager();
@@ -418,7 +416,7 @@ public class CreateListFragment extends Fragment{
                         //現在の表示内容をバックスタックに追加
                         clfTransaction.addToBackStack("createList");
                         //リスト作成画面フラグメントをMainFragmentに置き換え
-                        clfTransaction.replace(R.id.fragmentMainContainer,MainFragment.class,itemBundle);
+                        clfTransaction.replace(R.id.fragmentMainContainer,MainFragment.class,bundle);
                         //フラグメントトランザクションのコミット
                         clfTransaction.commit();
 

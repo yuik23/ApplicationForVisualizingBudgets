@@ -1,6 +1,4 @@
-package com.websarva.wings.android.applicationforvisualizingbudgets;
-
-import android.os.Bundle;
+package com.websarva.wings.android.applicationforvisualizingbudgets.view;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
